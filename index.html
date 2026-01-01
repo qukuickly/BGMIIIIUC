@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>BGMI UC Store 2026 | Premium UC</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -12,18 +12,18 @@
             --primary-dark: #3a0ca3;
             --secondary: #7209b7;
             --accent: #f72585;
-            --success: #4cc9f0;
-            --warning: #f8961e;
-            --danger: #e63946;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
             --light: #f8f9fa;
-            --dark: #212529;
-            --gray: #6c757d;
-            --gray-light: #e9ecef;
-            --border-radius: 16px;
+            --dark: #1f2937;
+            --gray: #6b7280;
+            --gray-light: #e5e7eb;
+            --border-radius: 12px;
             --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
-            --transition: all 0.3s ease;
+            --transition: all 0.2s ease;
             --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
         }
 
@@ -31,19 +31,26 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            touch-action: manipulation;
         }
 
         body {
-            background-color: #f8fafc;
+            background-color: #ffffff;
             color: var(--dark);
             max-width: 500px;
             margin: 0 auto;
             height: 100vh;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
             position: relative;
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
         }
 
         /* Loading Screen */
@@ -59,34 +66,33 @@
             justify-content: center;
             align-items: center;
             z-index: 10000;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
+            animation: fadeOut 0.5s ease 1.5s forwards;
         }
 
-        .loading-screen.hidden {
-            opacity: 0;
-            visibility: hidden;
+        @keyframes fadeOut {
+            to { opacity: 0; visibility: hidden; }
         }
 
         .loading-logo {
-            width: 120px;
-            height: 120px;
-            margin-bottom: 20px;
-            animation: pulse 2s infinite;
-            border-radius: 24px;
+            width: 100px;
+            height: 100px;
+            margin-bottom: 16px;
+            animation: pulse 1.5s infinite;
             background: white;
-            padding: 20px;
+            padding: 16px;
+            border-radius: 20px;
             box-shadow: var(--shadow-lg);
         }
 
         .loading-year {
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 900;
             color: white;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .loading-text {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: white;
             text-align: center;
             max-width: 80%;
@@ -95,71 +101,51 @@
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); }
+            0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
         }
 
         /* Top App Bar */
         .app-bar {
             background: white;
-            padding: 16px 20px;
+            padding: 12px 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: var(--shadow-sm);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
             z-index: 100;
-            position: relative;
+            height: 56px;
+            flex-shrink: 0;
+            border-bottom: 1px solid #e5e7eb;
         }
 
         .app-logo {
-            height: 32px;
+            height: 28px;
+            width: auto;
             object-fit: contain;
         }
 
-        .user-info {
+        .trust-badge {
+            background: var(--success);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 12px;
-        }
-
-        .user-avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            overflow: hidden;
-            cursor: pointer;
-            border: 2px solid var(--primary);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .user-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            gap: 4px;
         }
 
         /* Main Content Area */
         .content {
             flex: 1;
             overflow-y: auto;
-            padding: 16px 20px 80px;
-            scrollbar-width: thin;
-            scrollbar-color: var(--primary) transparent;
-            position: relative;
-        }
-
-        .content::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        .content::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .content::-webkit-scrollbar-thumb {
-            background-color: var(--primary);
-            border-radius: 10px;
+            -webkit-overflow-scrolling: touch;
+            padding: 16px;
+            padding-bottom: 80px;
         }
 
         /* Page transitions */
@@ -168,31 +154,32 @@
             top: 0;
             left: 0;
             right: 0;
+            bottom: 0;
             opacity: 0;
             transform: translateX(20px);
-            transition: var(--transition);
+            transition: none;
             pointer-events: none;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 16px;
+            padding-top: 0;
         }
 
         .page.active {
             opacity: 1;
             transform: translateX(0);
             pointer-events: all;
-        }
-
-        .page.exit {
-            opacity: 0;
-            transform: translateX(-20px);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         /* Carousel */
         .carousel-container {
-            margin: 16px 0;
+            margin: 12px 0;
             border-radius: var(--border-radius);
             overflow: hidden;
-            box-shadow: var(--shadow);
             position: relative;
             height: 160px;
+            background: #000;
         }
 
         .carousel-slide {
@@ -216,89 +203,367 @@
             right: 0;
             display: flex;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
             z-index: 2;
         }
 
         .carousel-indicator {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.5);
-            cursor: pointer;
             transition: var(--transition);
         }
 
         .carousel-indicator.active {
             background: white;
-            transform: scale(1.2);
+            width: 20px;
+            border-radius: 3px;
         }
 
         /* Section Titles */
         .section-title {
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             font-weight: 700;
-            margin: 24px 0 16px;
+            margin: 20px 0 12px;
             color: var(--dark);
             display: flex;
             align-items: center;
-            gap: 10px;
-            text-align: center;
-            justify-content: center;
+            gap: 8px;
         }
 
-        .section-title i {
-            color: var(--primary);
-        }
-
-        /* Price List */
+        /* Price Grid */
         .price-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 24px;
+            gap: 10px;
+            margin-bottom: 20px;
         }
 
         .price-card {
-            background-color: white;
-            border-radius: var(--border-radius);
-            padding: 20px 16px;
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
+            background: white;
+            border-radius: 12px;
+            padding: 16px 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s;
             text-align: center;
-            cursor: pointer;
-            border: 2px solid transparent;
+            border: 1px solid #e5e7eb;
             position: relative;
             overflow: hidden;
         }
 
-        .price-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow);
-            border-color: var(--primary-light);
+        .price-card:active {
+            transform: scale(0.98);
+        }
+
+        .best-value {
+            position: absolute;
+            top: 8px;
+            right: -28px;
+            background: var(--accent);
+            color: white;
+            padding: 3px 28px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            transform: rotate(45deg);
         }
 
         .price-amount {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 800;
             color: var(--primary);
             margin-bottom: 4px;
         }
 
         .price-uc {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 700;
             color: var(--dark);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
-        .price-note {
-            font-size: 0.8rem;
-            color: var(--gray);
-            background: var(--gray-light);
-            padding: 4px 8px;
-            border-radius: 20px;
+        .price-discount {
+            font-size: 0.75rem;
+            color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+            padding: 3px 8px;
+            border-radius: 12px;
             display: inline-block;
+            font-weight: 600;
+        }
+
+        /* Reviews Section */
+        .reviews-section {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .reviews-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .reviews-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .reviews-stats {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .rating-badge {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: white;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Add Comment Button - Fixed */
+        .add-comment-btn-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .add-comment-btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s;
+            box-shadow: var(--shadow);
+        }
+
+        .add-comment-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Comments List */
+        .comments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .comment-item {
+            display: flex;
+            gap: 12px;
+            padding: 12px;
+            background: #f9fafb;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .comment-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: var(--gray-light);
+        }
+
+        .comment-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .comment-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .comment-user {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .username {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--dark);
+        }
+
+        .user-badge {
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+
+        .user-badge.purchased {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .user-badge.unpurchased {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        .comment-date {
+            font-size: 0.75rem;
+            color: var(--gray);
+        }
+
+        .comment-text {
+            font-size: 0.85rem;
+            line-height: 1.4;
+            color: var(--dark);
+        }
+
+        /* Add Comment Form */
+        .add-comment-form {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 16px;
+            margin-top: 16px;
+            border: 1px solid #e5e7eb;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--dark);
+        }
+
+        .comment-textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            resize: none;
+            min-height: 80px;
+            font-family: inherit;
+            background: #f9fafb;
+        }
+
+        .comment-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+
+        .cancel-btn {
+            background: var(--gray-light);
+            color: var(--gray);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .submit-btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .submit-btn:active, .cancel-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            max-width: 500px;
+            margin: 0 auto;
+            z-index: 100;
+            height: 60px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--gray);
+            padding: 8px;
+            min-width: 70px;
+            transition: var(--transition);
+            border-radius: 8px;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+            background: rgba(67, 97, 238, 0.1);
+        }
+
+        .nav-icon {
+            font-size: 1.2rem;
+            margin-bottom: 2px;
+        }
+
+        .nav-label {
+            font-size: 0.7rem;
+            font-weight: 600;
         }
 
         /* Modals */
@@ -309,83 +574,59 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.5);
             z-index: 1000;
             align-items: center;
             justify-content: center;
-            padding: 20px;
-            backdrop-filter: blur(4px);
+            padding: 16px;
         }
 
         .modal.active {
             display: flex;
-            animation: modalFadeIn 0.3s ease;
+            animation: modalFadeIn 0.2s ease;
         }
 
         @keyframes modalFadeIn {
-            from {
-                opacity: 0;
-                backdrop-filter: blur(0px);
-            }
-            to {
-                opacity: 1;
-                backdrop-filter: blur(4px);
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .modal-content {
-            background-color: white;
+            background: white;
             border-radius: var(--border-radius);
-            padding: 24px;
+            padding: 20px;
             width: 100%;
             max-width: 400px;
-            box-shadow: var(--shadow-lg);
+            max-height: 90vh;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
             animation: slideUp 0.3s ease;
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateY(20px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
         }
 
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .modal-title {
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             font-weight: 700;
             color: var(--dark);
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .modal-close {
             background: none;
             border: none;
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             color: var(--gray);
             cursor: pointer;
             padding: 4px;
-            transition: var(--transition);
-        }
-
-        .modal-close:hover {
-            color: var(--danger);
         }
 
         .input-group {
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .input-label {
@@ -393,104 +634,101 @@
             margin-bottom: 8px;
             font-weight: 600;
             color: var(--dark);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
         .input-field {
             width: 100%;
-            padding: 14px 16px;
-            border: 2px solid var(--gray-light);
-            border-radius: 12px;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
             font-size: 1rem;
-            transition: var(--transition);
-            background: white;
+            background: #f9fafb;
         }
 
         .input-field:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+            background: white;
         }
 
         .input-note {
             font-size: 0.8rem;
             color: var(--gray);
-            text-align: center;
             margin-top: 8px;
-            line-height: 1.4;
         }
 
         .button {
             background: var(--gradient);
             color: white;
             border: none;
-            padding: 14px 24px;
-            border-radius: 12px;
-            font-size: 1rem;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.95rem;
             font-weight: 600;
             cursor: pointer;
-            transition: var(--transition);
             width: 100%;
+            transition: transform 0.2s;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            box-shadow: var(--shadow);
         }
 
-        .button:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
+        .button:active {
+            transform: scale(0.98);
         }
 
-        .button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: var(--shadow-sm);
+        /* Payment Timer */
+        .payment-timer {
+            text-align: center;
+            margin: 16px 0;
+            padding: 12px;
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border-radius: 8px;
+            border: 1px solid #fbbf24;
         }
 
-        .button-secondary {
-            background: white;
-            color: var(--primary);
-            border: 2px solid var(--primary);
-            margin-top: 12px;
+        .timer-title {
+            font-size: 0.9rem;
+            color: #92400e;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .timer-display {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #dc2626;
+            font-family: 'Courier New', monospace;
+        }
+
+        .timer-warning {
+            font-size: 0.8rem;
+            color: #dc2626;
+            margin-top: 8px;
+            font-weight: 500;
         }
 
         /* QR Modal */
         .qr-container {
             text-align: center;
-            margin: 20px 0;
+            margin: 16px 0;
         }
 
         .qr-code {
-            width: 180px;
-            height: 180px;
+            width: 200px;
+            height: 200px;
             margin: 0 auto;
             border: 8px solid white;
-            border-radius: 12px;
+            border-radius: 8px;
             box-shadow: var(--shadow);
             background: white;
             padding: 8px;
         }
 
-        .timer-container {
-            margin: 16px 0;
-            text-align: center;
-        }
-
-        .timer {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            background: rgba(67, 97, 238, 0.1);
-            padding: 8px 16px;
-            border-radius: 12px;
-            display: inline-block;
-        }
-
         .upi-id {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: var(--dark);
             background: rgba(67, 97, 238, 0.1);
             padding: 10px;
@@ -503,532 +741,59 @@
             gap: 8px;
         }
 
-        /* Media Page */
-        .rating-section {
-            background-color: white;
-            border-radius: var(--border-radius);
-            padding: 20px;
-            box-shadow: var(--shadow-sm);
-            margin-bottom: 20px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .rating-info {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .rating-count {
-            font-size: 0.9rem;
-            color: var(--gray);
-            font-weight: 500;
-        }
-
-        .rating-value {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin: 4px 0;
-        }
-
-        .rate-now-btn {
-            background: var(--gradient);
-            color: white;
-            border: none;
-            padding: 10px 24px;
-            border-radius: 25px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: var(--shadow);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 8px;
-        }
-
-        .rate-now-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        /* Rating Popup */
-        .rating-card {
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 16px;
-            box-shadow: var(--shadow-lg);
-            max-width: 320px;
-            margin: 0 auto;
-        }
-
-        .text-wrapper {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .text-primary {
-            color: var(--dark);
-            font-size: 1.1rem;
-            font-weight: 700;
-            text-align: center;
-        }
-
-        .text-secondary {
-            color: var(--gray);
-            font-size: 0.9rem;
-            font-weight: 400;
-            text-align: center;
-        }
-
-        .rating-stars-container {
-            display: flex;
-            flex-direction: row-reverse;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin: 8px 0;
-        }
-
-        .star-label {
-            cursor: pointer;
-            color: #ddd;
-            transition: var(--transition);
-            font-size: 2rem;
-        }
-
-        .star-label:hover,
-        .star-label:hover ~ .star-label {
-            color: #ffd700;
-        }
-
-        .rating-stars-container input {
-            display: none;
-        }
-
-        .rating-stars-container input:checked ~ .star-label,
-        .rating-stars-container input:checked ~ .star-label ~ .star-label {
-            color: #ffd700;
-        }
-
-        .socials-container {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 16px;
-            padding-top: 16px;
-            border-top: 1px solid var(--gray-light);
-        }
-
-        .social-button {
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: var(--gray-light);
-            transition: var(--transition);
-        }
-
-        .social-button:hover {
-            background: var(--primary);
-            transform: translateY(-2px);
-        }
-
-        .social-button svg {
-            width: 18px;
-            height: 18px;
-            fill: var(--gray);
-        }
-
-        .social-button:hover svg {
-            fill: white;
-        }
-
-        /* Comments Section */
-        .comments-section {
-            background-color: white;
-            border-radius: var(--border-radius);
-            padding: 20px;
-            box-shadow: var(--shadow-sm);
-            margin-bottom: 24px;
-        }
-
-        .comments-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-            color: var(--dark);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .comment-form {
-            margin-bottom: 20px;
-        }
-
-        .comment-input {
-            width: 100%;
-            padding: 14px;
-            border: 2px solid var(--gray-light);
-            border-radius: 12px;
-            font-size: 0.95rem;
-            transition: var(--transition);
-            margin-bottom: 12px;
-            min-height: 80px;
-            resize: vertical;
-            font-family: inherit;
-        }
-
-        .comment-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
-        }
-
-        .comment-submit {
-            background: var(--gradient);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 12px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .comment-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
-        }
-
-        .comments-list {
-            max-height: 300px;
-            overflow-y: auto;
-            padding-right: 8px;
-        }
-
-        .comment-item {
+        .payment-steps {
+            background: #f8fafc;
             padding: 12px;
-            border-bottom: 1px solid var(--gray-light);
+            border-radius: 8px;
+            margin: 16px 0;
+            border: 1px solid #e5e7eb;
+        }
+
+        .step {
             display: flex;
-            align-items: flex-start;
-            gap: 12px;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            color: var(--dark);
         }
 
-        .comment-item:last-child {
-            border-bottom: none;
+        .step:last-child {
+            margin-bottom: 0;
         }
 
-        .comment-avatar {
-            width: 36px;
-            height: 36px;
+        .step-number {
+            background: var(--primary);
+            color: white;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
-            overflow: hidden;
-            flex-shrink: 0;
-            border: 2px solid var(--primary-light);
-        }
-
-        .comment-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .comment-content {
-            flex: 1;
-        }
-
-        .comment-header {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 6px;
-        }
-
-        .comment-user {
-            font-weight: 600;
-            color: var(--dark);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.9rem;
-        }
-
-        .user-status {
-            font-size: 0.7rem;
-            padding: 2px 6px;
-            border-radius: 10px;
-            font-weight: 500;
-        }
-
-        .user-status.purchased {
-            background: rgba(76, 201, 240, 0.1);
-            color: var(--success);
-        }
-
-        .user-status.unpurchased {
-            background: rgba(230, 57, 70, 0.1);
-            color: var(--danger);
-        }
-
-        .comment-time {
-            font-size: 0.75rem;
-            color: var(--gray);
-        }
-
-        .comment-text {
-            color: var(--dark);
-            line-height: 1.5;
-            font-size: 0.9rem;
-        }
-
-        /* History Page */
-        .history-empty {
-            background-color: white;
-            border-radius: var(--border-radius);
-            padding: 40px 20px;
-            box-shadow: var(--shadow-sm);
-            text-align: center;
-            margin-top: 32px;
-        }
-
-        .history-icon {
-            font-size: 3rem;
-            color: var(--primary);
-            margin-bottom: 16px;
-            opacity: 0.7;
-        }
-
-        .history-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: var(--dark);
-        }
-
-        .history-text {
-            color: var(--gray);
-            margin-bottom: 24px;
-            line-height: 1.5;
-            font-size: 0.95rem;
-        }
-
-        /* Purchase History Item */
-        .history-item {
-            background-color: white;
-            border-radius: var(--border-radius);
-            padding: 16px;
-            box-shadow: var(--shadow-sm);
-            margin-bottom: 12px;
-            border-left: 4px solid var(--danger);
-        }
-
-        .history-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .history-amount {
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: var(--danger);
-        }
-
-        .history-date {
-            font-size: 0.85rem;
-            color: var(--gray);
-        }
-
-        .history-details {
-            display: flex;
-            justify-content: space-between;
-            color: var(--gray);
-            font-size: 0.85rem;
-            margin-bottom: 8px;
-        }
-
-        .history-status {
-            background: rgba(230, 57, 70, 0.1);
-            color: var(--danger);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            display: inline-block;
-        }
-
-        /* Refund Page */
-        .refund-container {
-            background-color: white;
-            border-radius: var(--border-radius);
-            padding: 40px 20px;
-            box-shadow: var(--shadow-sm);
-            text-align: center;
-            margin-top: 32px;
-        }
-
-        .refund-icon {
-            font-size: 3rem;
-            color: var(--primary);
-            margin-bottom: 16px;
-            opacity: 0.7;
-        }
-
-        .refund-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: var(--dark);
-        }
-
-        .refund-text {
-            color: var(--gray);
-            margin-bottom: 24px;
-            line-height: 1.5;
-            font-size: 0.95rem;
-        }
-
-        /* Bottom Navigation */
-        .bottom-nav {
-            background: white;
-            display: flex;
-            justify-content: space-around;
-            padding: 12px 0;
-            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.08);
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            max-width: 500px;
-            margin: 0 auto;
-            z-index: 100;
-        }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-decoration: none;
-            color: var(--gray);
-            transition: var(--transition);
-            padding: 8px 12px;
-            border-radius: 12px;
-            cursor: pointer;
-            min-width: 60px;
-        }
-
-        .nav-item.active {
-            color: var(--primary);
-            background: rgba(67, 97, 238, 0.1);
-        }
-
-        .nav-icon {
-            font-size: 1.2rem;
-            margin-bottom: 4px;
-        }
-
-        .nav-label {
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        /* Verified Badge */
-        .verified-badge {
-            display: inline-flex;
-            align-items: center;
-            background: rgba(76, 201, 240, 0.1);
-            color: var(--success);
-            padding: 3px 8px;
-            border-radius: 10px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-left: 8px;
-            animation: badgePulse 1s ease-in-out;
-        }
-
-        .verified-badge i {
-            margin-right: 4px;
-        }
-
-        @keyframes badgePulse {
-            0% { transform: scale(0.8); opacity: 0; }
-            70% { transform: scale(1.1); }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        /* Name Input Modal */
-        .name-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1001;
             align-items: center;
             justify-content: center;
-            padding: 20px;
-            backdrop-filter: blur(4px);
-        }
-
-        .name-modal.active {
-            display: flex;
-        }
-
-        .name-input {
-            width: 100%;
-            padding: 14px 16px;
-            border: 2px solid var(--gray-light);
-            border-radius: 12px;
-            font-size: 1rem;
-            margin-bottom: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
         }
 
         /* Notification */
         .notification {
             position: fixed;
-            top: 80px;
+            top: 70px;
             left: 50%;
             transform: translateX(-50%) translateY(-20px);
-            background-color: white;
+            background: white;
             color: var(--dark);
-            padding: 14px 20px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-lg);
+            padding: 12px 16px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             z-index: 1000;
             opacity: 0;
-            transition: var(--transition);
+            transition: all 0.3s ease;
             font-weight: 600;
             max-width: 90%;
             text-align: center;
             border-left: 4px solid var(--primary);
+            pointer-events: none;
         }
 
         .notification.active {
@@ -1036,28 +801,71 @@
             transform: translateX(-50%) translateY(0);
         }
 
+        /* Trust Badges */
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .trust-badge-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .trust-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--success);
+            font-size: 1.2rem;
+        }
+
+        .trust-text {
+            font-size: 0.7rem;
+            color: var(--gray);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* Empty States */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .empty-icon {
+            font-size: 3rem;
+            color: var(--gray-light);
+            margin-bottom: 16px;
+        }
+
+        .empty-title {
+            font-size: 1.1rem;
+            color: var(--dark);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .empty-text {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
         /* Responsive adjustments */
-        @media (max-width: 400px) {
+        @media (max-width: 380px) {
             .price-grid {
                 grid-template-columns: 1fr;
-            }
-            
-            .loading-logo {
-                width: 100px;
-                height: 100px;
-                padding: 16px;
-            }
-            
-            .loading-year {
-                font-size: 2rem;
-            }
-            
-            .rating-card {
-                padding: 20px;
-            }
-            
-            .star-label {
-                font-size: 1.75rem;
+                gap: 8px;
             }
             
             .carousel-container {
@@ -1065,30 +873,54 @@
             }
             
             .content {
-                padding: 12px 16px 80px;
+                padding: 12px;
+                padding-bottom: 70px;
             }
             
             .app-bar {
-                padding: 12px 16px;
+                padding: 10px 12px;
+                height: 52px;
             }
+            
+            .bottom-nav {
+                height: 56px;
+            }
+        }
+
+        /* iOS Safari specific fixes */
+        @supports (-webkit-touch-callout: none) {
+            .content {
+                padding-bottom: calc(80px + env(safe-area-inset-bottom));
+            }
+            
+            .bottom-nav {
+                padding-bottom: env(safe-area-inset-bottom);
+                height: calc(60px + env(safe-area-inset-bottom));
+            }
+        }
+
+        /* Prevent text selection */
+        .no-select {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
         }
     </style>
 </head>
-<body>
+<body class="no-select">
     <!-- Loading Screen -->
     <div class="loading-screen" id="loadingScreen">
-        <img src="https://i.pinimg.com/originals/1f/6d/f8/1f6df8c8bcd23772c944a989d688cd49.png" alt="BGMI Logo" class="loading-logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Battlegrounds_Mobile_India_Logo.png/800px-Battlegrounds_Mobile_India_Logo.png" alt="BGMI Logo" class="loading-logo">
         <div class="loading-year">2026</div>
         <div class="loading-text">Premium UC at Best Prices</div>
     </div>
 
     <!-- Top App Bar -->
     <header class="app-bar">
-        <img src="https://i.pinimg.com/originals/1f/6d/f8/1f6df8c8bcd23772c944a989d688cd49.png" alt="BGMI Logo" class="app-logo">
-        <div class="user-info">
-            <div class="user-avatar" id="userAvatar">
-                <img src="https://tse3.mm.bing.net/th/id/OIP.ta8ZyBJvzvRUvCx8kjfkEgAAAA?rs=1&pid=ImgDetMain&o=7&rm=3" alt="User DP">
-            </div>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Battlegrounds_Mobile_India_Logo.png/600px-Battlegrounds_Mobile_India_Logo.png" alt="BGMI Logo" class="app-logo">
+        <div class="trust-badge">
+            <i class="fas fa-shield-alt"></i>
+            <span>Trusted Store</span>
         </div>
     </header>
 
@@ -1096,18 +928,38 @@
     <main class="content" id="mainContent">
         <!-- Dashboard Page -->
         <section id="dashboard-page" class="page active">
+            <!-- Trust Badges -->
+            <div class="trust-badges">
+                <div class="trust-badge-item">
+                    <div class="trust-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="trust-text">Instant Delivery</div>
+                </div>
+                <div class="trust-badge-item">
+                    <div class="trust-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="trust-text">100% Safe</div>
+                </div>
+                <div class="trust-badge-item">
+                    <div class="trust-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div class="trust-text">24/7 Support</div>
+                </div>
+            </div>
+
             <!-- Carousel -->
             <div class="carousel-container">
-                <div class="carousel-slide active" style="background-image: url('https://d1yei2z3i6k35z.cloudfront.net/13184094/69567e823b015_8476225b-ab04-4e1a-a5a4-02ae15df5f2c.png');"></div>
-                <div class="carousel-slide" style="background-image: url('https://d1yei2z3i6k35z.cloudfront.net/13184094/69567fefe662e_415bbb5c-9645-4aba-b36c-ae48f5b40ecc.png');"></div>
-                <div class="carousel-slide" style="background-image: url('https://d1yei2z3i6k35z.cloudfront.net/13184094/695681c7a30f9_d14a5995-d7d7-472c-be7c-4368d34ebbe4.png');"></div>
-                <div class="carousel-slide" style="background-image: url('https://d1yei2z3i6k35z.cloudfront.net/13184094/6956851f5da5b_404ba577-2558-4306-b769-958b464f0935.png');"></div>
+                <div class="carousel-slide active" style="background-image: url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&auto=format&fit=crop');"></div>
+                <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1600861194942-f883de0dfe96?w=800&auto=format&fit=crop');"></div>
+                <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?w=800&auto=format&fit=crop');"></div>
                 
                 <div class="carousel-indicators">
                     <div class="carousel-indicator active" data-index="0"></div>
                     <div class="carousel-indicator" data-index="1"></div>
                     <div class="carousel-indicator" data-index="2"></div>
-                    <div class="carousel-indicator" data-index="3"></div>
                 </div>
             </div>
 
@@ -1122,37 +974,51 @@
             </div>
         </section>
 
-        <!-- Media Page -->
-        <section id="media-page" class="page">
-            <!-- Rating Section -->
-            <div class="rating-section">
-                <div class="rating-info">
-                    <div class="rating-count" id="ratingCount">Rated by 73,753 users</div>
-                    <div class="rating-value" id="ratingValue">3.9</div>
+        <!-- Reviews Page -->
+        <section id="reviews-page" class="page">
+            <!-- Reviews Header -->
+            <div class="reviews-section">
+                <div class="reviews-header">
+                    <h3 class="reviews-title">
+                        <i class="fas fa-star"></i>
+                        <span>Customer Reviews</span>
+                    </h3>
+                    <div class="reviews-stats">
+                        <div class="rating-badge">
+                            <i class="fas fa-star"></i>
+                            <span>4.8</span>
+                        </div>
+                        <div class="rating-count">5,247 reviews</div>
+                    </div>
                 </div>
-                <button class="rate-now-btn" id="rateNowBtn">
-                    <i class="fas fa-star"></i>
-                    <span>RATE NOW</span>
-                </button>
-            </div>
 
-            <!-- Comments Section -->
-            <div class="comments-section">
-                <h3 class="comments-title">
-                    <i class="fas fa-comments"></i>
-                    <span>User Comments</span>
-                </h3>
-                
-                <div class="comment-form">
-                    <textarea class="comment-input" id="commentInput" placeholder="Share your experience..."></textarea>
-                    <button class="comment-submit" id="commentSubmit">
-                        <i class="fas fa-paper-plane"></i>
-                        <span>Add Comment</span>
-                    </button>
-                </div>
-                
+                <!-- Comments List -->
                 <div class="comments-list" id="commentsList">
                     <!-- Comments will be populated by JavaScript -->
+                </div>
+
+                <!-- Add Comment Button - Fixed Position -->
+                <div class="add-comment-btn-container" id="addCommentBtnContainer">
+                    <button class="add-comment-btn" id="addCommentBtn">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>Add Your Review</span>
+                    </button>
+                </div>
+
+                <!-- Add Comment Form (hidden by default) -->
+                <div class="add-comment-form" id="commentForm" style="display: none;">
+                    <h4 class="form-title">Share Your Experience</h4>
+                    <textarea class="comment-textarea" id="commentInput" placeholder="Write your review here... (Your review will appear as 'unpurchased' by default)"></textarea>
+                    <div class="form-actions">
+                        <button class="cancel-btn" id="cancelCommentBtn">
+                            <i class="fas fa-times"></i>
+                            <span>Cancel</span>
+                        </button>
+                        <button class="submit-btn" id="submitCommentBtn">
+                            <i class="fas fa-paper-plane"></i>
+                            <span>Submit Review</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1169,12 +1035,12 @@
             </div>
             
             <!-- Empty State -->
-            <div class="history-empty" id="emptyHistory" style="display: none;">
-                <div class="history-icon">
+            <div class="empty-state" id="emptyHistory" style="display: none;">
+                <div class="empty-icon">
                     <i class="fas fa-shopping-cart"></i>
                 </div>
-                <h3 class="history-title">No Purchases Yet</h3>
-                <p class="history-text">You haven't made any purchases yet. Browse our UC packages to get started!</p>
+                <h3 class="empty-title">No Purchases Yet</h3>
+                <p class="empty-text">You haven't made any purchases yet. Browse our UC packages to get started!</p>
                 <button class="button" id="browsePackagesBtn">
                     <i class="fas fa-shopping-bag"></i>
                     <span>Browse Packages</span>
@@ -1189,12 +1055,12 @@
                 <span>Refund Policy</span>
             </h2>
             
-            <div class="refund-container">
-                <div class="refund-icon">
+            <div class="empty-state">
+                <div class="empty-icon">
                     <i class="fas fa-exchange-alt"></i>
                 </div>
-                <h3 class="refund-title">No Purchase Yet</h3>
-                <p class="refund-text">You haven't made any purchases yet. Once you purchase UC, you can check refund eligibility here.</p>
+                <h3 class="empty-title">No Purchase Yet</h3>
+                <p class="empty-text">You haven't made any purchases yet. Once you purchase UC, you can check refund eligibility here.</p>
                 <button class="button" id="goToDashboardBtn">
                     <i class="fas fa-home"></i>
                     <span>Go to Dashboard</span>
@@ -1209,9 +1075,9 @@
             <i class="fas fa-home nav-icon"></i>
             <span class="nav-label">Dashboard</span>
         </a>
-        <a class="nav-item" data-route="media">
-            <i class="fas fa-photo-video nav-icon"></i>
-            <span class="nav-label">Media</span>
+        <a class="nav-item" data-route="reviews">
+            <i class="fas fa-star nav-icon"></i>
+            <span class="nav-label">Reviews</span>
         </a>
         <a class="nav-item" data-route="history">
             <i class="fas fa-history nav-icon"></i>
@@ -1223,122 +1089,70 @@
         </a>
     </nav>
 
-    <!-- UID Input Modal -->
+    <!-- Modals -->
     <div class="modal" id="uidModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">
-                    <i class="fas fa-user-circle"></i>
-                    <span>Enter Your UID</span>
-                </h3>
+                <h3 class="modal-title">Enter Your BGMI UID</h3>
                 <button class="modal-close" id="closeUidModal">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             <div class="input-group">
                 <label class="input-label" for="uidInput">BGMI UID :</label>
-                <input type="text" class="input-field" id="uidInput" placeholder="Enter your UID" maxlength="12" inputmode="numeric">
-                <div class="input-note">Make sure to enter correct UID. UC will be sent to this ID.</div>
+                <input type="text" class="input-field" id="uidInput" placeholder="Enter your 10-digit UID" maxlength="10" inputmode="numeric" pattern="[0-9]*">
+                <div class="input-note">Make sure to enter correct UID. UC will be sent to this ID within 5 minutes after payment.</div>
             </div>
             <button class="button" id="nextBtn" disabled>
                 <i class="fas fa-arrow-right"></i>
-                <span>Continue</span>
+                <span>Continue to Payment</span>
             </button>
         </div>
     </div>
 
-    <!-- QR Modal -->
     <div class="modal" id="qrModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">
-                    <i class="fas fa-qrcode"></i>
-                    <span>Complete Payment</span>
-                </h3>
+                <h3 class="modal-title">Complete Payment</h3>
                 <button class="modal-close" id="closeQrModal">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
+            
+            <!-- Payment Timer -->
+            <div class="payment-timer">
+                <div class="timer-title">Complete payment within:</div>
+                <div class="timer-display" id="paymentTimer">08:00</div>
+                <div class="timer-warning">Order will be cancelled after timer expires!</div>
+            </div>
+            
             <div class="qr-container">
                 <img id="qrCodeImg" class="qr-code" src="" alt="UPI QR Code">
             </div>
+            
             <div class="upi-id">
                 <i class="fas fa-user-circle"></i>
-                <span id="upiId">nikhilbgmiuc@fam</span>
+                <span id="upiId">bgmiuc.store@okaxis</span>
             </div>
-            <div class="timer-container">
-                <div class="timer" id="paymentTimer">10:00</div>
-            </div>
-            <div class="input-note">Scan the QR code to complete payment. UC will be delivered within 5 minutes after successful payment.</div>
-            <button class="button button-secondary" id="closeQrBtn">
-                <i class="fas fa-times"></i>
-                <span>Close</span>
-            </button>
-        </div>
-    </div>
-
-    <!-- Rating Modal -->
-    <div class="modal" id="ratingModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">
-                    <i class="fas fa-star"></i>
-                    <span>Rate Your Experience</span>
-                </h3>
-                <button class="modal-close" id="closeRatingModal">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="rating-card">
-                <div class="text-wrapper">
-                    <p class="text-primary">Please Rate Your Experience</p>
-                    <p class="text-secondary">to help us serve you better</p>
+            
+            <div class="payment-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <span>Scan QR code with any UPI app</span>
                 </div>
-
-                <div class="rating-stars-container">
-                    <input value="5" name="star" id="star-5" type="radio" />
-                    <label for="star-5" class="star-label">★</label>
-                    <input value="4" name="star" id="star-4" type="radio" />
-                    <label for="star-4" class="star-label">★</label>
-                    <input value="3" name="star" id="star-3" type="radio" />
-                    <label for="star-3" class="star-label">★</label>
-                    <input value="2" name="star" id="star-2" type="radio" />
-                    <label for="star-2" class="star-label">★</label>
-                    <input value="1" name="star" id="star-1" type="radio" />
-                    <label for="star-1" class="star-label">★</label>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <span>Complete payment of ₹<span id="paymentAmount">0</span></span>
                 </div>
-                <div class="socials-container">
-                    <a class="social-button" href="https://www.facebook.com/BGMI.Official/" target="_blank">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a class="social-button" href="https://www.instagram.com/battlegroundsmobileindia/" target="_blank">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a class="social-button" href="https://twitter.com/BGMI_Official" target="_blank">
-                        <i class="fab fa-twitter"></i>
-                    </a>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <span>UC will be delivered within 5 minutes</span>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- Name Input Modal -->
-    <div class="modal name-modal" id="nameModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">
-                    <i class="fas fa-user"></i>
-                    <span>Enter Your Name</span>
-                </h3>
-            </div>
-            <div class="input-group">
-                <label class="input-label" for="nameInput">Your Name:</label>
-                <input type="text" class="name-input" id="nameInput" placeholder="Enter your name">
-                <div class="input-note">This name will be displayed with your comment</div>
-            </div>
-            <button class="button" id="submitNameBtn">
-                <i class="fas fa-check"></i>
-                <span>Submit</span>
+            
+            <button class="button" id="checkPaymentBtn">
+                <i class="fas fa-check-circle"></i>
+                <span>I have completed payment</span>
             </button>
         </div>
     </div>
@@ -1347,91 +1161,111 @@
     <div class="notification" id="notification"></div>
 
     <script>
+        // Enhanced mobile app with fixes
         // State Management
         const AppState = {
             userUID: localStorage.getItem('bgmi_uid') || '',
             username: localStorage.getItem('bgmi_username') || 'Player',
-            userAvatar: localStorage.getItem('bgmi_avatar') || 'https://tse3.mm.bing.net/th/id/OIP.ta8ZyBJvzvRUvCx8kjfkEgAAAA?rs=1&pid=ImgDetMain&o=7&rm=3',
-            balance: parseInt(localStorage.getItem('bgmi_balance')) || 0,
             purchases: JSON.parse(localStorage.getItem('bgmi_purchases')) || [],
             comments: JSON.parse(localStorage.getItem('bgmi_comments')) || [],
-            ratings: JSON.parse(localStorage.getItem('bgmi_ratings')) || [],
-            lastRoute: localStorage.getItem('bgmi_lastRoute') || 'dashboard',
             selectedPackage: null,
-            pendingComment: null
+            paymentTimer: null,
+            timerSeconds: 480 // 8 minutes in seconds
         };
 
-        // Initialize with failed purchase history
+        // Initialize with sample data
         if (AppState.purchases.length === 0) {
-            const failedPurchases = [
-                { uid: '5168823456', price: 500, uc: 1800, timestamp: Date.now() - 86400000, status: 'failed' },
-                { uid: '5168823456', price: 800, uc: 2800, timestamp: Date.now() - 172800000, status: 'failed' },
-                { uid: '5168823456', price: 2000, uc: 6000, timestamp: Date.now() - 259200000, status: 'failed' }
+            AppState.purchases = [
+                { uid: '5168823456', price: 500, uc: 1800, timestamp: Date.now() - 86400000, status: 'failed' }
             ];
-            AppState.purchases = failedPurchases;
             savePurchases();
         }
 
-        // Sample data for initialization
+        // Sample comments data - More realistic
         if (AppState.comments.length === 0) {
+            const now = Date.now();
             AppState.comments = [
-                { id: 1, user: "arsh", status: "purchased", text: "This is very fast bhai ab dekhte he account ka kya hota he risk liya he chep uC leke .", time: Date.now(), avatar: "https://tse3.mm.bing.net/th/id/OIP.ta8ZyBJvzvRUvCx8kjfkEgAAAA?rs=1&pid=ImgDetMain&o=7&rm=3" },
-                { id: 2, user: "kaju", status: "unpurchased", text: "bhai UC dedo koi 🥺 me pese kaha se launga", time: Date.now() - 3600000, avatar: "https://tse3.mm.bing.net/th/id/OIP.ta8ZyBJvzvRUvCx8kjfkEgAAAA?rs=1&pid=ImgDetMain&o=7&rm=3" },
-                { id: 3, user: "ranaji", status: "purchased", text: "nice working 2 baar le liya mene", time: Date.now() - 7200000, avatar: "https://tse3.mm.bing.net/th/id/OIP.ta8ZyBJvzvRUvCx8kjfkEgAAAA?rs=1&pid=ImgDetMain&o=7&rm=3" },
-                { id: 4, user: "morya", status: "purchased", text: "working ye log carding use karte he jayda koi bhi purchese mate krna", time: Date.now() - 10800000, avatar: "https://tse3.mm.bing.net/th/id/OIP.ta8ZyBJvzvRUvCx8kjfkEgAAAA?rs=1&pid=ImgDetMain&o=7&rm=3" },
-                { id: 5, user: "😗", status: "purchased", text: "darling glacier nikalunga ab", time: Date.now() - 14400000, avatar: "https://tse3.mm.bing.net/th/id/OIP.ta8ZyBJvzvRUvCx8kjfkEgAAAA?rs=1&pid=ImgDetMain&o=7&rm=3" },
-                { id: 6, user: "money man", status: "purchased", text: "Guys id par risk rahta he din me 2 baar se jayda mat buy karna", time: Date.now() - 86400000, avatar: "https://tse3.mm.bing.net/th/id/OIP.ta8ZyBJvzvRUvCx8kjfkEgAAAA?rs=1&pid=ImgDetMain&o=7&rm=3" },
-                { id: 7, user: "ranaji", status: "purchased", text: "mast kaam karta he ye app", time: Date.now() - 172800000, avatar: "https://tse3.mm.bing.net/th/id/OIP.ta8ZyBJvzvRUvCx8kjfkEgAAAA?rs=1&pid=ImgDetMain&o=7&rm=3" }
+                { 
+                    id: 1, 
+                    user: "ArshGaming", 
+                    status: "purchased", 
+                    text: "Got 1800 UC in just 3 minutes! Legit store, will buy again! 🚀", 
+                    time: now - 3600000,
+                    avatar: "https://api.dicebear.com/7.x/adventurer/svg?seed=Arsh" 
+                },
+                { 
+                    id: 2, 
+                    user: "BGMIPro", 
+                    status: "purchased", 
+                    text: "Best rates compared to other stores. Delivery was super fast! ⚡", 
+                    time: now - 7200000,
+                    avatar: "https://api.dicebear.com/7.x/adventurer/svg?seed=Pro" 
+                },
+                { 
+                    id: 3, 
+                    user: "UC_Hunter", 
+                    status: "unpurchased", 
+                    text: "Are these rates for real? Someone please confirm if it's working! 🤔", 
+                    time: now - 10800000,
+                    avatar: "https://api.dicebear.com/7.x/adventurer/svg?seed=Hunter" 
+                },
+                { 
+                    id: 4, 
+                    user: "NoobMaster", 
+                    status: "purchased", 
+                    text: "Bought 6000 UC, got it instantly. Thank you for the discount! 💯", 
+                    time: now - 14400000,
+                    avatar: "https://api.dicebear.com/7.x/adventurer/svg?seed=Noob" 
+                },
+                { 
+                    id: 5, 
+                    user: "PubgLover", 
+                    status: "unpurchased", 
+                    text: "Waiting for salary to buy UC from here! Rates are amazing! 😍", 
+                    time: now - 18000000,
+                    avatar: "https://api.dicebear.com/7.x/adventurer/svg?seed=Pubg" 
+                }
             ];
             saveComments();
         }
 
-        if (AppState.ratings.length === 0) {
-            AppState.ratings = [5, 5, 4, 5, 4, 5, 4, 5, 5, 4, 5, 4, 5, 5, 5, 4, 5, 4, 5, 5];
-            saveRatings();
-        }
-
-        // UC Packages
+        // UC Packages with discounts
         const ucPackages = [
-            { price: 300, uc: 900, id: 1 },
-            { price: 500, uc: 1800, id: 2 },
-            { price: 800, uc: 2800, id: 3 },
-            { price: 2000, uc: 6000, id: 4 },
-            { price: 5000, uc: 13500, id: 5 },
-            { price: 8000, uc: 24000, id: 6 }
+            { price: 300, uc: 900, discount: "5% OFF", isBest: false },
+            { price: 500, uc: 1800, discount: "10% OFF", isBest: true },
+            { price: 800, uc: 2800, discount: "12% OFF", isBest: false },
+            { price: 2000, uc: 6000, discount: "15% OFF", isBest: false },
+            { price: 5000, uc: 13500, discount: "18% OFF", isBest: true },
+            { price: 8000, uc: 24000, discount: "20% OFF", isBest: false }
         ];
 
         // DOM Elements
         const loadingScreen = document.getElementById('loadingScreen');
-        const userAvatarEl = document.getElementById('userAvatar');
         const navItems = document.querySelectorAll('.nav-item');
         const pages = document.querySelectorAll('.page');
         const priceGrid = document.getElementById('priceGrid');
         const uidModal = document.getElementById('uidModal');
         const qrModal = document.getElementById('qrModal');
-        const ratingModal = document.getElementById('ratingModal');
-        const nameModal = document.getElementById('nameModal');
         const uidInput = document.getElementById('uidInput');
         const nextBtn = document.getElementById('nextBtn');
         const closeUidModal = document.getElementById('closeUidModal');
         const closeQrModal = document.getElementById('closeQrModal');
-        const closeRatingModal = document.getElementById('closeRatingModal');
         const qrCodeImg = document.getElementById('qrCodeImg');
         const paymentTimer = document.getElementById('paymentTimer');
+        const paymentAmount = document.getElementById('paymentAmount');
         const commentInput = document.getElementById('commentInput');
-        const commentSubmit = document.getElementById('commentSubmit');
+        const submitCommentBtn = document.getElementById('submitCommentBtn');
+        const cancelCommentBtn = document.getElementById('cancelCommentBtn');
         const commentsList = document.getElementById('commentsList');
-        const ratingValue = document.getElementById('ratingValue');
-        const ratingCount = document.getElementById('ratingCount');
-        const rateNowBtn = document.getElementById('rateNowBtn');
+        const addCommentBtn = document.getElementById('addCommentBtn');
+        const addCommentBtnContainer = document.getElementById('addCommentBtnContainer');
+        const commentForm = document.getElementById('commentForm');
         const historyList = document.getElementById('historyList');
         const emptyHistory = document.getElementById('emptyHistory');
         const browsePackagesBtn = document.getElementById('browsePackagesBtn');
         const goToDashboardBtn = document.getElementById('goToDashboardBtn');
+        const checkPaymentBtn = document.getElementById('checkPaymentBtn');
         const notification = document.getElementById('notification');
-        const upiId = document.getElementById('upiId');
-        const nameInput = document.getElementById('nameInput');
-        const submitNameBtn = document.getElementById('submitNameBtn');
 
         // Carousel variables
         let currentSlide = 0;
@@ -1439,25 +1273,12 @@
         const carouselIndicators = document.querySelectorAll('.carousel-indicator');
         let carouselInterval;
 
-        // Timer variables
-        let uidTimer;
-        let paymentCountdown;
-        let autoClickTimeout;
-
         // Initialize the app
         function initApp() {
-            // Hide loading screen after 1.5 seconds
-            setTimeout(() => {
-                loadingScreen.classList.add('hidden');
-                initAppContent();
-            }, 1500);
-        }
-
-        function initAppContent() {
-            // Load user data
-            updateUserDisplay();
+            // Loading screen auto-hides via CSS animation
+            
+            // Initialize app content
             updatePriceGrid();
-            updateRatingDisplay();
             updateCommentsList();
             updatePurchaseHistory();
             
@@ -1470,18 +1291,10 @@
             // Set up event listeners
             setupEventListeners();
             
-            // Load last active route
+            // Show initial notification after load
             setTimeout(() => {
-                navigateTo(AppState.lastRoute, false);
-            }, 100);
-        }
-
-        // Update user display
-        function updateUserDisplay() {
-            const userAvatarImg = userAvatarEl.querySelector('img');
-            userAvatarImg.src = AppState.userAvatar;
-            localStorage.setItem('bgmi_avatar', AppState.userAvatar);
-            localStorage.setItem('bgmi_username', AppState.username);
+                showNotification('Welcome to BGMI UC Store 2026! 🎮', 'success');
+            }, 2000);
         }
 
         // Update price grid
@@ -1493,80 +1306,23 @@
                 card.className = 'price-card';
                 card.setAttribute('data-price', pkg.price);
                 card.setAttribute('data-uc', pkg.uc);
-                card.setAttribute('data-id', pkg.id);
                 
                 card.innerHTML = `
-                    <div class="price-amount">₹ ${pkg.price.toLocaleString('en-IN')}</div>
-                    <div class="price-uc">${pkg.uc.toLocaleString('en-IN')} UC</div>
-                    <div class="price-note">Best Value</div>
+                    ${pkg.isBest ? '<div class="best-value">BEST</div>' : ''}
+                    <div class="price-amount">₹${pkg.price}</div>
+                    <div class="price-uc">${pkg.uc.toLocaleString()} UC</div>
+                    <div class="price-discount">${pkg.discount}</div>
                 `;
                 
                 card.addEventListener('click', () => openUidModal(pkg));
+                
                 priceGrid.appendChild(card);
-            });
-        }
-
-        // Update rating display
-        function updateRatingDisplay() {
-            // Calculate average rating
-            const totalRatings = AppState.ratings.length;
-            const sumRatings = AppState.ratings.reduce((a, b) => a + b, 0);
-            const avgRating = totalRatings > 0 ? (sumRatings / totalRatings).toFixed(1) : 3.9;
-            
-            // Set initial rating display
-            ratingValue.textContent = avgRating;
-            
-            // Setup rating modal interaction
-            setupRatingModal();
-        }
-
-        // Setup rating modal
-        function setupRatingModal() {
-            rateNowBtn.addEventListener('click', () => {
-                ratingModal.classList.add('active');
-            });
-
-            closeRatingModal.addEventListener('click', () => {
-                ratingModal.classList.remove('active');
-            });
-
-            // Close rating modal when clicking outside
-            ratingModal.addEventListener('click', (e) => {
-                if (e.target === ratingModal) {
-                    ratingModal.classList.remove('active');
-                }
-            });
-
-            // Handle star rating
-            const starInputs = document.querySelectorAll('#ratingModal input[name="star"]');
-            starInputs.forEach(input => {
-                input.addEventListener('change', function() {
-                    const value = parseInt(this.value);
-                    AppState.ratings.push(value);
-                    saveRatings();
-                    
-                    // Update display
-                    const totalRatings = AppState.ratings.length;
-                    const sumRatings = AppState.ratings.reduce((a, b) => a + b, 0);
-                    const avgRating = (sumRatings / totalRatings).toFixed(1);
-                    
-                    ratingValue.textContent = avgRating;
-                    ratingModal.classList.remove('active');
-                    
-                    showNotification('Thank you for your rating!', 'success');
-                });
             });
         }
 
         // Update comments list
         function updateCommentsList() {
             commentsList.innerHTML = '';
-            
-            // Filter out comments older than 24 hours
-            const now = Date.now();
-            const oneDay = 24 * 60 * 60 * 1000;
-            AppState.comments = AppState.comments.filter(comment => now - comment.time < oneDay);
-            saveComments();
             
             // Sort comments by time (newest first)
             const sortedComments = [...AppState.comments].sort((a, b) => b.time - a.time);
@@ -1582,20 +1338,20 @@
             const item = document.createElement('div');
             item.className = 'comment-item';
             
-            const time = new Date(comment.time);
-            const timeStr = formatTimeAgo(time);
+            const date = new Date(comment.time);
+            const dateStr = formatDate(date);
             
             item.innerHTML = `
                 <div class="comment-avatar">
-                    <img src="${comment.avatar || 'https://tse3.mm.bing.net/th/id/OIP.ta8ZyBJvzvRUvCx8kjfkEgAAAA?rs=1&pid=ImgDetMain&o=7&rm=3'}" alt="${comment.user}">
+                    <img src="${comment.avatar}" alt="${comment.user}" onerror="this.src='https://api.dicebear.com/7.x/adventurer/svg?seed=${comment.user}'">
                 </div>
                 <div class="comment-content">
                     <div class="comment-header">
                         <div class="comment-user">
-                            <span>${comment.user}</span>
-                            <span class="user-status ${comment.status}">${comment.status === 'purchased' ? '◉ purchased' : '● unpurchased'} user</span>
+                            <span class="username">${comment.user}</span>
+                            <span class="user-badge ${comment.status}">${comment.status === 'purchased' ? '✅ purchased' : '❌ unpurchased'}</span>
                         </div>
-                        <div class="comment-time">${timeStr}</div>
+                        <div class="comment-date">${dateStr}</div>
                     </div>
                     <div class="comment-text">${comment.text}</div>
                 </div>
@@ -1604,25 +1360,21 @@
             return item;
         }
 
-        // Format time ago
-        function formatTimeAgo(date) {
+        // Format date
+        function formatDate(date) {
             const now = new Date();
             const diff = now - date;
             
-            const seconds = Math.floor(diff / 1000);
-            const minutes = Math.floor(seconds / 60);
-            const hours = Math.floor(minutes / 60);
+            const minutes = Math.floor(diff / (1000 * 60));
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
             
-            if (seconds < 60) return 'Just now';
             if (minutes < 60) return `${minutes}m ago`;
             if (hours < 24) return `${hours}h ago`;
-            
-            const days = Math.floor(hours / 24);
-            if (days === 1) return 'Yesterday';
             return `${days}d ago`;
         }
 
-        // Update purchase history - ALL FAILED
+        // Update purchase history
         function updatePurchaseHistory() {
             historyList.innerHTML = '';
             
@@ -1636,25 +1388,25 @@
                 
                 sortedPurchases.forEach(purchase => {
                     const historyItem = document.createElement('div');
-                    historyItem.className = 'history-item';
+                    historyItem.className = 'comment-item';
                     
                     const date = new Date(purchase.timestamp);
-                    const dateStr = date.toLocaleDateString('en-IN', { 
-                        day: '2-digit', 
-                        month: 'short', 
-                        year: 'numeric' 
-                    });
+                    const dateStr = formatDate(date);
                     
                     historyItem.innerHTML = `
-                        <div class="history-header">
-                            <div class="history-amount">${purchase.uc.toLocaleString('en-IN')} UC</div>
-                            <div class="history-date">${dateStr}</div>
+                        <div style="flex: 1;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                                <div style="font-weight: 700; color: var(--danger);">${purchase.uc.toLocaleString()} UC</div>
+                                <div style="font-size: 0.75rem; color: var(--gray);">${dateStr}</div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; color: var(--gray); font-size: 0.8rem; margin-bottom: 6px;">
+                                <span>UID: ${purchase.uid}</span>
+                                <span>₹${purchase.price}</span>
+                            </div>
+                            <div style="background: rgba(239, 68, 68, 0.1); color: var(--danger); padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; display: inline-block;">
+                                ❌ Payment not received
+                            </div>
                         </div>
-                        <div class="history-details">
-                            <span>UID: ${purchase.uid}</span>
-                            <span>₹ ${purchase.price.toLocaleString('en-IN')}</span>
-                        </div>
-                        <div class="history-status">Payment not received</div>
                     `;
                     
                     historyList.appendChild(historyItem);
@@ -1665,14 +1417,9 @@
         // Start carousel
         function startCarousel() {
             carouselInterval = setInterval(() => {
-                nextCarouselSlide();
-            }, 4000); // Change every 4 seconds
-        }
-
-        // Next carousel slide
-        function nextCarouselSlide() {
-            currentSlide = (currentSlide + 1) % carouselSlides.length;
-            updateCarousel();
+                currentSlide = (currentSlide + 1) % carouselSlides.length;
+                updateCarousel();
+            }, 4000);
         }
 
         // Update carousel
@@ -1688,86 +1435,76 @@
             });
         }
 
-        // Set up event listeners for carousel indicators
-        carouselIndicators.forEach(indicator => {
-            indicator.addEventListener('click', function() {
-                clearInterval(carouselInterval);
-                currentSlide = parseInt(this.getAttribute('data-index'));
-                updateCarousel();
-                startCarousel();
-            });
-        });
-
         // Open UID modal
         function openUidModal(packageData) {
             AppState.selectedPackage = packageData;
             uidModal.classList.add('active');
             uidInput.focus();
             
-            // Reset timer
-            clearTimeout(uidTimer);
-            clearTimeout(autoClickTimeout);
-            
-            // Enable next button only if UID is valid
-            uidInput.addEventListener('input', validateUid);
-            
-            // Start 6-second timer for auto-click
-            uidTimer = setTimeout(() => {
+            // Auto-verify after 6 seconds
+            setTimeout(() => {
                 if (uidInput.value.length === 10) {
-                    // Show verified badge animation
-                    const inputGroup = document.querySelector('.input-group');
-                    const verifiedBadge = document.createElement('span');
-                    verifiedBadge.className = 'verified-badge';
-                    verifiedBadge.innerHTML = '<i class="fas fa-check-circle"></i> Verified';
-                    
-                    // Remove existing badge if any
-                    const existingBadge = inputGroup.querySelector('.verified-badge');
-                    if (existingBadge) {
-                        existingBadge.remove();
-                    }
-                    
-                    inputGroup.appendChild(verifiedBadge);
-                    
-                    // Auto-click after 1 second to show verification
-                    autoClickTimeout = setTimeout(() => {
-                        nextBtn.click();
+                    showVerifiedBadge();
+                    setTimeout(() => {
+                        if (!nextBtn.disabled) nextBtn.click();
                     }, 1000);
                 }
             }, 6000);
         }
 
+        // Show verified badge
+        function showVerifiedBadge() {
+            const inputGroup = document.querySelector('.input-group');
+            const existingBadge = inputGroup.querySelector('.verified-badge');
+            if (!existingBadge) {
+                const badge = document.createElement('div');
+                badge.className = 'verified-badge';
+                badge.style.cssText = 'margin-top: 8px; color: var(--success); font-weight: 600; font-size: 0.8rem; display: flex; align-items: center; gap: 4px;';
+                badge.innerHTML = '<i class="fas fa-check-circle"></i> UID verified';
+                inputGroup.appendChild(badge);
+            }
+        }
+
         // Validate UID
         function validateUid() {
             const uid = uidInput.value.trim();
-            const isValid = /^\d{8,12}$/.test(uid);
-            
+            const isValid = /^\d{10}$/.test(uid);
             nextBtn.disabled = !isValid;
             
-            // If UID becomes 10 digits, prepare for auto-click
             if (uid.length === 10) {
-                clearTimeout(uidTimer);
+                showVerifiedBadge();
+            }
+        }
+
+        // Start payment timer
+        function startPaymentTimer() {
+            clearInterval(AppState.paymentTimer);
+            AppState.timerSeconds = 480;
+            
+            updateTimerDisplay();
+            
+            AppState.paymentTimer = setInterval(() => {
+                AppState.timerSeconds--;
+                updateTimerDisplay();
                 
-                // Start 6-second timer for auto-click
-                uidTimer = setTimeout(() => {
-                    // Show verified badge
-                    const inputGroup = document.querySelector('.input-group');
-                    const verifiedBadge = document.createElement('span');
-                    verifiedBadge.className = 'verified-badge';
-                    verifiedBadge.innerHTML = '<i class="fas fa-check-circle"></i> Verified';
-                    
-                    // Remove existing badge if any
-                    const existingBadge = inputGroup.querySelector('.verified-badge');
-                    if (existingBadge) {
-                        existingBadge.remove();
-                    }
-                    
-                    inputGroup.appendChild(verifiedBadge);
-                    
-                    // Auto-click after 1 second
-                    autoClickTimeout = setTimeout(() => {
-                        nextBtn.click();
-                    }, 1000);
-                }, 6000);
+                if (AppState.timerSeconds <= 0) {
+                    clearInterval(AppState.paymentTimer);
+                    qrModal.classList.remove('active');
+                    showNotification('Payment time expired! Please try again.', 'error');
+                }
+            }, 1000);
+        }
+
+        // Update timer display
+        function updateTimerDisplay() {
+            const minutes = Math.floor(AppState.timerSeconds / 60);
+            const seconds = AppState.timerSeconds % 60;
+            paymentTimer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Change color when less than 2 minutes
+            if (AppState.timerSeconds < 120) {
+                paymentTimer.style.color = '#dc2626';
+                paymentTimer.style.animation = 'pulse 1s infinite';
             }
         }
 
@@ -1775,41 +1512,26 @@
         function showQrCode() {
             uidModal.classList.remove('active');
             
-            // Generate QR code URL
             const amount = AppState.selectedPackage.price;
-            const upiLink = `upi://pay?pa=nikhilbgmiuc@fam&pn=BGMIPayment&am=${amount}&cu=INR&tn=BGMIUC${amount}`;
-            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(upiLink)}`;
+            paymentAmount.textContent = amount;
+            
+            // Generate QR code for UPI
+            const upiLink = `upi://pay?pa=bgmiuc.store@okaxis&pn=BGMI+UC+Store&am=${amount}&cu=INR&tn=BGMI+UC+${amount}`;
+            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiLink)}&bgcolor=ffffff&color=000000&margin=10`;
             
             qrCodeImg.src = qrUrl;
             qrModal.classList.add('active');
             
-            // Start 10-minute timer
-            startPaymentTimer(600); // 10 minutes = 600 seconds
+            // Start timer
+            startPaymentTimer();
             
-            // Redirect to payment link after a short delay
+            // Open payment link in new tab after 1 second
             setTimeout(() => {
                 window.open(upiLink, '_blank');
-            }, 500);
-        }
-
-        // Start payment timer
-        function startPaymentTimer(duration) {
-            let timer = duration;
-            paymentCountdown = setInterval(() => {
-                const minutes = Math.floor(timer / 60);
-                const seconds = timer % 60;
-                
-                paymentTimer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                
-                if (--timer < 0) {
-                    clearInterval(paymentCountdown);
-                    paymentTimer.textContent = "Time's Up!";
-                    showNotification('Payment time expired. Please try again.', 'warning');
-                }
             }, 1000);
         }
 
-        // Complete purchase - ALWAYS FAILED
+        // Complete purchase
         function completePurchase() {
             const purchase = {
                 uid: uidInput.value,
@@ -1822,44 +1544,21 @@
             AppState.purchases.push(purchase);
             savePurchases();
             
-            // Clear UID input
             uidInput.value = '';
-            
-            // Show notification - always failed
-            showNotification(`Purchase failed! Payment not received. Try again.`, 'error');
-            
-            // Update history
             updatePurchaseHistory();
         }
 
-        // Save purchases to localStorage
+        // Save data to localStorage
         function savePurchases() {
             localStorage.setItem('bgmi_purchases', JSON.stringify(AppState.purchases));
         }
 
-        // Save comments to localStorage
         function saveComments() {
             localStorage.setItem('bgmi_comments', JSON.stringify(AppState.comments));
         }
 
-        // Save ratings to localStorage
-        function saveRatings() {
-            localStorage.setItem('bgmi_ratings', JSON.stringify(AppState.ratings));
-        }
-
-        // Set up hash-based routing
+        // Set up routing
         function setupRouting() {
-            // Handle initial route
-            const hash = window.location.hash.substring(1) || 'dashboard';
-            const route = hash.split('#')[0];
-            
-            // Handle hash changes
-            window.addEventListener('hashchange', handleHashChange);
-            
-            // Handle back/forward buttons
-            window.addEventListener('popstate', handleHashChange);
-            
-            // Set up navigation clicks
             navItems.forEach(item => {
                 item.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -1868,39 +1567,30 @@
                 });
             });
             
-            // User avatar click goes to profile (dashboard in this case)
-            userAvatarEl.addEventListener('click', () => navigateTo('dashboard'));
-        }
-
-        // Handle hash changes
-        function handleHashChange() {
-            const hash = window.location.hash.substring(1) || 'dashboard';
-            const route = hash.split('#')[0];
-            navigateTo(route);
+            // Handle hash changes
+            window.addEventListener('hashchange', () => {
+                const hash = window.location.hash.substring(1) || 'dashboard';
+                navigateTo(hash);
+            });
+            
+            // Initialize with current hash
+            const initialHash = window.location.hash.substring(1) || 'dashboard';
+            navigateTo(initialHash);
         }
 
         // Navigate to a route
-        function navigateTo(route, updateHash = true) {
-            const validRoutes = ['dashboard', 'media', 'history', 'refund'];
+        function navigateTo(route) {
+            const validRoutes = ['dashboard', 'reviews', 'history', 'refund'];
             
             if (!validRoutes.includes(route)) {
                 route = 'dashboard';
             }
             
-            // Update active page with transition
+            // Update active page
             pages.forEach(page => {
-                if (page.classList.contains('active')) {
-                    page.classList.remove('active');
-                    page.classList.add('exit');
-                    setTimeout(() => {
-                        page.classList.remove('exit');
-                    }, 300);
-                }
-                
+                page.classList.remove('active');
                 if (page.id === `${route}-page`) {
-                    setTimeout(() => {
-                        page.classList.add('active');
-                    }, 10);
+                    setTimeout(() => page.classList.add('active'), 10);
                 }
             });
             
@@ -1912,106 +1602,94 @@
                 }
             });
             
-            // Update hash if needed
-            if (updateHash && window.location.hash.substring(1) !== route) {
-                window.location.hash = route;
-            }
-            
             // Store last route
-            AppState.lastRoute = route;
             localStorage.setItem('bgmi_lastRoute', route);
+            window.location.hash = route;
         }
 
         // Set up event listeners
         function setupEventListeners() {
             // UID modal
+            uidInput.addEventListener('input', validateUid);
+            
             nextBtn.addEventListener('click', () => {
                 if (!nextBtn.disabled) {
                     AppState.userUID = uidInput.value;
                     localStorage.setItem('bgmi_uid', AppState.userUID);
                     showQrCode();
-                    completePurchase();
                 }
             });
             
             closeUidModal.addEventListener('click', () => {
                 uidModal.classList.remove('active');
-                clearTimeout(uidTimer);
-                clearTimeout(autoClickTimeout);
             });
             
             // QR modal
             closeQrModal.addEventListener('click', () => {
                 qrModal.classList.remove('active');
-                clearInterval(paymentCountdown);
+                clearInterval(AppState.paymentTimer);
             });
             
-            // Name modal
-            submitNameBtn.addEventListener('click', () => {
-                const name = nameInput.value.trim();
-                if (name) {
-                    AppState.username = name;
-                    updateUserDisplay();
-                    nameModal.classList.remove('active');
-                    
-                    // Submit the pending comment
-                    if (AppState.pendingComment) {
-                        submitComment(AppState.pendingComment);
-                        AppState.pendingComment = null;
-                    }
-                } else {
-                    showNotification('Please enter your name', 'warning');
-                }
+            checkPaymentBtn.addEventListener('click', () => {
+                qrModal.classList.remove('active');
+                clearInterval(AppState.paymentTimer);
+                completePurchase();
+                showNotification('Verifying payment... This may take 2-3 minutes.', 'info');
+                
+                // Simulate payment verification
+                setTimeout(() => {
+                    showNotification('❌ Payment verification failed! Please try again.', 'error');
+                }, 3000);
             });
             
-            // Comment submission
-            commentSubmit.addEventListener('click', () => {
+            // Comment system
+            addCommentBtn.addEventListener('click', () => {
+                commentForm.style.display = 'block';
+                addCommentBtnContainer.style.display = 'none';
+                commentInput.focus();
+            });
+            
+            cancelCommentBtn.addEventListener('click', () => {
+                commentForm.style.display = 'none';
+                addCommentBtnContainer.style.display = 'flex';
+                commentInput.value = '';
+            });
+            
+            submitCommentBtn.addEventListener('click', () => {
                 const text = commentInput.value.trim();
                 
                 if (!text) {
-                    showNotification('Please enter a comment', 'warning');
+                    showNotification('Please write a review', 'warning');
                     return;
                 }
                 
-                // Store the comment text temporarily
-                AppState.pendingComment = text;
+                // Generate random username
+                const randomNames = ['BGMI_Player', 'UC_King', 'GameLover', 'ProGamer', 'BattleRoyale'];
+                const randomName = randomNames[Math.floor(Math.random() * randomNames.length)] + Math.floor(Math.random() * 100);
                 
-                // Show name input modal
-                nameModal.classList.add('active');
-                nameInput.focus();
+                const newComment = {
+                    id: Date.now(),
+                    user: randomName,
+                    status: "unpurchased",
+                    text: text,
+                    time: Date.now(),
+                    avatar: `https://api.dicebear.com/7.x/adventurer/svg?seed=${randomName}`
+                };
+                
+                AppState.comments.unshift(newComment);
+                saveComments();
+                
+                updateCommentsList();
+                commentInput.value = '';
+                commentForm.style.display = 'none';
+                addCommentBtnContainer.style.display = 'flex';
+                
+                showNotification('Review added successfully!', 'success');
             });
             
-            // Browse packages button
+            // Navigation buttons
             browsePackagesBtn.addEventListener('click', () => navigateTo('dashboard'));
-            
-            // Go to dashboard button
             goToDashboardBtn.addEventListener('click', () => navigateTo('dashboard'));
-            
-            // UID input validation
-            uidInput.addEventListener('input', validateUid);
-        }
-
-        // Submit comment with current username
-        function submitComment(text) {
-            const newComment = {
-                id: Date.now(),
-                user: AppState.username,
-                status: AppState.purchases.length > 0 ? 'purchased' : 'unpurchased',
-                text: text,
-                time: Date.now(),
-                avatar: AppState.userAvatar
-            };
-            
-            AppState.comments.unshift(newComment);
-            saveComments();
-            
-            // Update comments list
-            updateCommentsList();
-            
-            // Clear input
-            commentInput.value = '';
-            
-            showNotification('Comment added successfully!', 'success');
         }
 
         // Show notification
@@ -2019,24 +1697,24 @@
             notification.textContent = message;
             notification.className = 'notification';
             
-            // Add type class if needed
             if (type === 'success') {
-                notification.style.borderLeftColor = '#4cc9f0';
+                notification.style.borderLeftColor = '#10b981';
             } else if (type === 'warning') {
-                notification.style.borderLeftColor = '#f8961e';
+                notification.style.borderLeftColor = '#f59e0b';
             } else if (type === 'error') {
-                notification.style.borderLeftColor = '#e63946';
+                notification.style.borderLeftColor = '#ef4444';
+            } else {
+                notification.style.borderLeftColor = '#3b82f6';
             }
             
             notification.classList.add('active');
             
-            // Hide after 3 seconds
             setTimeout(() => {
                 notification.classList.remove('active');
             }, 3000);
         }
 
-        // Initialize the app when DOM is loaded
+        // Initialize the app
         document.addEventListener('DOMContentLoaded', initApp);
     </script>
 </body>
